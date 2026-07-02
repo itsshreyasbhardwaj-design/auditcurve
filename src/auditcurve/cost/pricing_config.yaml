@@ -1,0 +1,24 @@
+# Pricing as of 2026-06-24 (Anthropic published pricing, via the claude-api skill).
+# Source: platform.claude.com/docs/en/pricing — re-check and bump `last_updated`
+# whenever prices change. This file is the ONLY place a dollar figure is hardcoded;
+# everything else derives cost from these numbers plus real token usage.
+last_updated: "2026-06-24"
+models:
+  claude-opus-4-8:
+    input_per_mtok_usd: 5.00
+    output_per_mtok_usd: 25.00
+  claude-sonnet-5:
+    input_per_mtok_usd: 3.00
+    output_per_mtok_usd: 15.00
+    # Introductory discount through 2026-08-31. If a pilot run falls in this window,
+    # the experiment's metadata.json must note which rate was used (see cost/calculator.py).
+    intro_input_per_mtok_usd: 2.00
+    intro_output_per_mtok_usd: 10.00
+    intro_expires: "2026-08-31"
+  claude-haiku-4-5:
+    input_per_mtok_usd: 1.00
+    output_per_mtok_usd: 5.00
+cache:
+  cache_write_5m_multiplier: 1.25
+  cache_write_1h_multiplier: 2.0
+  cache_read_multiplier: 0.10

@@ -1,0 +1,24 @@
+# Default pilot experiment. Sized to cost roughly $1-1.50 and run in ~15-30 minutes —
+# see docs/architecture and the README for the full cost estimate methodology.
+# run_id is a template; the CLI appends the actual run date when it resolves this file.
+run_id: "pilot"
+untrusted_model: "claude-sonnet-5"
+trusted_model: "claude-haiku-4-5"
+tasks: "all"
+trials_per_task: 3
+mutation_error_types:
+  - tool_misuse
+  - silent_numeric_error
+  - omission
+  - fabrication
+  - instruction_violation
+mutation_severities:
+  - blatant
+  - subtle
+mutated_fraction: 0.5
+monitor_strategies:
+  - full_review
+  - spot_check
+  - streaming
+spot_check_budgets: [1, 2, 4]
+random_seed: 42

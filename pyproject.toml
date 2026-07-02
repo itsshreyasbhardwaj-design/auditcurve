@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "auditcurve"
+version = "0.1.0"
+description = "The real dollar-cost and latency Pareto frontier of trusted monitoring, measured on realistic agentic tool-use tasks."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.68.0",
+    "click>=8.1.7",
+    "pyyaml>=6.0.2",
+    "jinja2>=3.1.4",
+    "matplotlib>=3.9.2",
+    # numpy>=2.1's bundled stubs use PEP 695 `type` aliases, which mypy can't parse under
+    # this project's python_version=3.11 target (see [tool.mypy]) — cap below that.
+    "numpy<2.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.3",
+    "ruff>=0.7.0",
+    "mypy>=1.13.0",
+    "types-PyYAML>=6.0.12",
+]
+
+[project.scripts]
+auditcurve = "auditcurve.orchestration.cli:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/auditcurve"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+# UP042 (str, Enum -> enum.StrEnum) requires Python 3.12+; this project supports 3.11+ (see CI matrix).
+ignore = ["UP042"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = false
+warn_unused_ignores = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit"]
