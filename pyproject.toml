@@ -17,7 +17,7 @@ dependencies = [
     "matplotlib>=3.9.2",
     # numpy>=2.1's bundled stubs use PEP 695 `type` aliases, which mypy can't parse under
     # this project's python_version=3.11 target (see [tool.mypy]) — cap below that.
-    "numpy<2.1",
+    "numpy<2.5",
 ]
 
 [project.optional-dependencies]
